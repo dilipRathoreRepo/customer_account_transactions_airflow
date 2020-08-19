@@ -50,7 +50,75 @@ with DAG('customer_account_transactions_dag',default_args=default_args,schedule_
         task_id='gcs_to_bq',
         bucket='customer-account-transactions-bucket',
         source_objects=['clean_transactions_mini.csv'],
-        destination_project_dataset_table='rising-minutia-254502:customer_account_transactions_ds.cust_acct_txn_table',
+        skip_leading_rows=1,
+        destination_project_dataset_table='rising-minutia-254502:customer_account_transactions_ds.cust_acct_txn_table_new',
+        schema_fields=[
+                       {
+                          "mode":"nullable",
+                          "name":"customer_id",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"first_name",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"last_name",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"email",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"gender",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"account_no",
+                          "type":"NUMERIC"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"currency",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"amount",
+                          "type":"FLOAT"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"transaction_time",
+                          "type":"DATE"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"street_address",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"city",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"postal_code",
+                          "type":"STRING"
+                       },
+                       {
+                          "mode":"nullable",
+                          "name":"country_name",
+                          "type":"STRING"
+                       }
+                      ],
         source_format='CSV',
         create_disposition='CREATE_IF_NEEDED',
         write_disposition='WRITE_TRUNCATE',
@@ -59,3 +127,4 @@ with DAG('customer_account_transactions_dag',default_args=default_args,schedule_
         )
 
     (clean_csv >> load_bigquery)
+
