@@ -1,6 +1,6 @@
-# Customer-Account-Transactions-Airflow
+# Data Ingestion from cloud storage to BQ
 
-Customer-Account-Transactions-Airflow is a Python project for ingesting and cleaning customer's transactions records and generate meaning ful insights later.
+It is a Python project for ingesting and cleaning customer's transactions records and generate meaning ful insights later.
 
 ## Deployment
 
